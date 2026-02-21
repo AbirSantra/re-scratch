@@ -1,6 +1,7 @@
 import React from "react";
 import { useAnimation } from "../hooks/useAnimation";
 import { useScratchStore } from "../store/useScratchStore";
+import { Gamepad2Icon } from "lucide-react";
 
 export default function Header() {
   const { play, stop, isPlaying } = useAnimation();
@@ -20,11 +21,11 @@ export default function Header() {
             border: "1px solid #4C97FF44",
           }}
         >
-          🎮
+          <Gamepad2Icon />
         </div>
         <div>
           <div className="text-sm font-bold text-white tracking-tight leading-none">
-            Scratch Editor
+            ReScratch
           </div>
           <div className="text-xs mt-0.5" style={{ color: "#484f58" }}>
             Visual Code Environment

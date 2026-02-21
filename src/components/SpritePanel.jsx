@@ -1,6 +1,7 @@
 import React from "react";
 import { useScratchStore } from "../store/useScratchStore";
 import CatSprite from "./CatSprite";
+import { ZapIcon } from "lucide-react";
 
 function ControlRow({ label, children }) {
   return (
@@ -65,6 +66,57 @@ export default function SpritePanel() {
   const update = (key) => (value) => updateSprite(sprite.id, { [key]: value });
   const disabled = isPlaying;
 
+  const setupCollisionDemo = () => {
+    if (isPlaying) return;
+    const [cat1, cat2] = sprites;
+    if (!cat1 || !cat2) return;
+
+    const makeId = () =>
+      `block-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    updateSprite(cat1.id, {
+      x: -120,
+      y: 0,
+      rotation: 0,
+      blocks: [
+        {
+          id: makeId(),
+          type: "repeat",
+          params: { times: 24 },
+          children: [
+            {
+              id: makeId(),
+              type: "move",
+              params: { steps: 10 },
+              children: undefined,
+            },
+          ],
+        },
+      ],
+    });
+
+    updateSprite(cat2.id, {
+      x: 120,
+      y: 0,
+      rotation: 0,
+      blocks: [
+        {
+          id: makeId(),
+          type: "repeat",
+          params: { times: 24 },
+          children: [
+            {
+              id: makeId(),
+              type: "move",
+              params: { steps: -10 },
+              children: undefined,
+            },
+          ],
+        },
+      ],
+    });
+  };
+
   return (
     <div className="flex flex-col gap-0 overflow-y-auto w-full">
       {/* Sprite preview header */}
@@ -97,14 +149,27 @@ export default function SpritePanel() {
 
       {/* Controls */}
       <div className="flex flex-col gap-3 p-3">
-        {/* Name */}
-        <ControlRow label="Name">
-          <TextInput
-            value={sprite.name}
-            onChange={update("name")}
-            disabled={disabled}
-          />
-        </ControlRow>
+        <div className="flex gap-4">
+          {/* Size */}
+          <ControlRow label="Size">
+            <NumberInput
+              value={sprite.size ?? 100}
+              onChange={update("size")}
+              disabled={disabled}
+              min={10}
+              max={500}
+              step={10}
+            />
+          </ControlRow>
+          {/* Name */}
+          <ControlRow label="Name">
+            <TextInput
+              value={sprite.name}
+              onChange={update("name")}
+              disabled={disabled}
+            />
+          </ControlRow>
+        </div>
 
         {/* X and Y */}
         <div className="flex gap-4">
@@ -122,17 +187,6 @@ export default function SpritePanel() {
               onChange={update("y")}
               disabled={disabled}
               step={1}
-            />
-          </ControlRow>
-          {/* Size */}
-          <ControlRow label="Size">
-            <NumberInput
-              value={sprite.size ?? 100}
-              onChange={update("size")}
-              disabled={disabled}
-              min={10}
-              max={500}
-              step={10}
             />
           </ControlRow>
         </div>
@@ -181,7 +235,7 @@ export default function SpritePanel() {
 
       {/* Hero feature hint */}
       <div
-        className="mx-3 mt-auto mb-3 p-2.5 rounded-xl text-xs"
+        className="mx-3 mt-auto mb-3 p-2.5 rounded-xl text-xs flex flex-col gap-2"
         style={{
           background: "rgba(46,160,67,0.08)",
           border: "1px solid rgba(46,160,67,0.25)",
@@ -189,9 +243,28 @@ export default function SpritePanel() {
           lineHeight: 1.5,
         }}
       >
-        <span className="font-bold">⚡ Hero Feature</span>
-        <br />
-        Sprites swap scripts on collision!
+        <span className="font-bold text-base flex items-center gap-1 mb-1">
+          <ZapIcon /> Hero Feature
+        </span>
+        <p className="">
+          Sprites swap scripts on collision! <br /> Click below to automatically
+          set up a demo. <br /> Then click Play and watch the magic happen ✨
+        </p>
+        <button
+          onClick={setupCollisionDemo}
+          disabled={isPlaying}
+          className="w-full mt-2 py-2 rounded-lg text-xs font-bold transition-all"
+          style={{
+            background: isPlaying
+              ? "rgba(46,160,67,0.05)"
+              : "rgba(46,160,67,0.15)",
+            color: isPlaying ? "#3d6e4a" : "#7ee787",
+            border: "1px solid rgba(46,160,67,0.3)",
+            cursor: isPlaying ? "not-allowed" : "pointer",
+          }}
+        >
+          Apply Template
+        </button>
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ export default function ScratchEditor() {
 
         {/* Right: Stage + Sprite panel */}
         <div
-          className="flex flex-col overflow-hidden"
+          className="flex flex-col overflow-hidden w-fit"
           style={{ flexShrink: 0 }}
         >
           <div className="p-4 flex justify-center items-center">
