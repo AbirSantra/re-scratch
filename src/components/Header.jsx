@@ -1,7 +1,12 @@
 import React from "react";
 import { useAnimation } from "../hooks/useAnimation";
 import { useScratchStore } from "../store/useScratchStore";
-import { Gamepad2Icon } from "lucide-react";
+import {
+  Gamepad2Icon,
+  PlayIcon,
+  RotateCcwIcon,
+  SquareIcon,
+} from "lucide-react";
 
 export default function Header() {
   const { play, stop, isPlaying } = useAnimation();
@@ -48,7 +53,9 @@ export default function Header() {
             boxShadow: isPlaying ? "none" : "0 3px 10px rgba(46,160,67,0.4)",
           }}
         >
-          <span>▶</span>
+          <span>
+            <PlayIcon className="size-4" />
+          </span>
           <span>Play All</span>
         </button>
 
@@ -61,7 +68,9 @@ export default function Header() {
             border: "1px solid #f8514933",
           }}
         >
-          <span>■</span>
+          <span>
+            <SquareIcon className="size-4" />
+          </span>
           <span>Stop</span>
         </button>
 
@@ -74,7 +83,9 @@ export default function Header() {
             border: "1px solid #30363d",
           }}
         >
-          <span>↺</span>
+          <span>
+            <RotateCcwIcon className="size-4" />
+          </span>
           <span>Reset</span>
         </button>
       </div>

@@ -40,16 +40,12 @@ export default function Sidebar() {
         ))}
       </div>
 
-      {/* Category label */}
-      <div
-        className="px-4 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider"
-        style={{ color: TABS.find((t) => t.key === activeTab)?.accent }}
-      >
-        {activeTab === BLOCK_CATEGORIES.MOTION ? "🏃 Motion" : "👁 Looks"}
+      <div className="p-4 pb-0">
+        <p className="text-xs">Drag blocks to the Script Area</p>
       </div>
 
       {/* Blocks list */}
-      <div className="flex-1 overflow-y-auto px-3 pb-3">
+      <div className="flex-1 overflow-y-auto p-3">
         {BLOCK_DEFS[activeTab].map((def) => (
           <SidebarBlock key={def.type} def={def} />
         ))}

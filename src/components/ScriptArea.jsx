@@ -58,7 +58,7 @@ export default function ScriptArea({ sprite }) {
       {/* Drop zone */}
       <div
         ref={drop}
-        className="flex-1 overflow-y-auto p-4 transition-colors"
+        className="flex-1 overflow-y-auto p-4 transition-colors pb-16"
         style={{
           background:
             isOver && canDrop ? "rgba(76, 151, 255, 0.06)" : "transparent",

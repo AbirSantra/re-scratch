@@ -6,10 +6,10 @@ import { ZapIcon } from "lucide-react";
 function ControlRow({ label, children }) {
   return (
     <div className="flex items-center justify-between gap-4 w-full">
-      <span className="text-xs" style={{ color: "#6e7681" }}>
+      <span className="text-xs flex-2" style={{ color: "#6e7681" }}>
         {label}
       </span>
-      {children}
+      <div className="flex-3">{children}</div>
     </div>
   );
 }
@@ -150,6 +150,14 @@ export default function SpritePanel() {
       {/* Controls */}
       <div className="flex flex-col gap-3 p-3">
         <div className="flex gap-4">
+          {/* Name */}
+          <ControlRow label="Name">
+            <TextInput
+              value={sprite.name}
+              onChange={update("name")}
+              disabled={disabled}
+            />
+          </ControlRow>
           {/* Size */}
           <ControlRow label="Size">
             <NumberInput
@@ -159,14 +167,6 @@ export default function SpritePanel() {
               min={10}
               max={500}
               step={10}
-            />
-          </ControlRow>
-          {/* Name */}
-          <ControlRow label="Name">
-            <TextInput
-              value={sprite.name}
-              onChange={update("name")}
-              disabled={disabled}
             />
           </ControlRow>
         </div>
