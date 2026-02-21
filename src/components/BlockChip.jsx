@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { DND_TYPES, ALL_BLOCK_DEFS, BLOCK_TYPES } from "../constants/blocks";
 import { useScratchStore } from "../store/useScratchStore";
+import { XIcon } from "lucide-react";
 
 const BLOCK_COLORS = {
   move: { bg: "#4C97FF", dark: "#2b6cb0" },
@@ -12,16 +13,24 @@ const BLOCK_COLORS = {
   think: { bg: "#9966FF", dark: "#6b3fa0" },
 };
 
-function ParamInput({ value, onChange, type = "number" }) {
+function ParamInput({ value, onChange, type = "text" }) {
+  const handleChange = (e) => {
+    const raw = e.target.value;
+    if (type === "text") return onChange(raw);
+    if (raw === "" || raw === "-") return onChange(raw);
+    if (/^-?\d+$/.test(raw)) return onChange(Number(raw));
+  };
+
   return (
     <input
-      className="rounded px-1.5 py-0.5 text-gray-900 font-bold text-xs mx-1 focus:outline-none focus:ring-2 focus:ring-white/50"
-      style={{ width: type === "text" ? 80 : 48 }}
-      type={type}
+      className="rounded px-1.5 py-0.5 text-gray-900 font-bold text-xs mx-1 focus:outline-none focus:ring-2 w-fit focus:ring-transparent [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+      style={{
+        width: type === "number" ? 48 : "auto",
+        background: "rgba(255,255,255,0.4)",
+      }}
+      type="text"
       value={value}
-      onChange={(e) =>
-        onChange(type === "number" ? Number(e.target.value) : e.target.value)
-      }
+      onChange={handleChange}
       onClick={(e) => e.stopPropagation()}
     />
   );
@@ -33,7 +42,11 @@ function BlockLabel({ block, onChange }) {
       {block.type === "move" && (
         <>
           <span>Move</span>
-          <ParamInput value={block.params.steps} onChange={onChange("steps")} />
+          <ParamInput
+            value={block.params.steps}
+            type="number"
+            onChange={onChange("steps")}
+          />
           <span>steps</span>
         </>
       )}
@@ -42,6 +55,7 @@ function BlockLabel({ block, onChange }) {
           <span>Turn</span>
           <ParamInput
             value={block.params.degrees}
+            type="number"
             onChange={onChange("degrees")}
           />
           <span>°</span>
@@ -50,15 +64,27 @@ function BlockLabel({ block, onChange }) {
       {block.type === "goto" && (
         <>
           <span>Go to x:</span>
-          <ParamInput value={block.params.x} onChange={onChange("x")} />
+          <ParamInput
+            value={block.params.x}
+            type="number"
+            onChange={onChange("x")}
+          />
           <span>y:</span>
-          <ParamInput value={block.params.y} onChange={onChange("y")} />
+          <ParamInput
+            value={block.params.y}
+            type="number"
+            onChange={onChange("y")}
+          />
         </>
       )}
       {block.type === "repeat" && (
         <>
           <span>Repeat</span>
-          <ParamInput value={block.params.times} onChange={onChange("times")} />
+          <ParamInput
+            value={block.params.times}
+            type="number"
+            onChange={onChange("times")}
+          />
           <span>times</span>
         </>
       )}
@@ -71,7 +97,11 @@ function BlockLabel({ block, onChange }) {
             type="text"
           />
           <span>for</span>
-          <ParamInput value={block.params.secs} onChange={onChange("secs")} />
+          <ParamInput
+            value={block.params.secs}
+            type="number"
+            onChange={onChange("secs")}
+          />
           <span>s</span>
         </>
       )}
@@ -84,7 +114,11 @@ function BlockLabel({ block, onChange }) {
             type="text"
           />
           <span>for</span>
-          <ParamInput value={block.params.secs} onChange={onChange("secs")} />
+          <ParamInput
+            value={block.params.secs}
+            type="number"
+            onChange={onChange("secs")}
+          />
           <span>s</span>
         </>
       )}
@@ -206,13 +240,13 @@ export default function BlockChip({ block, index, spriteId, parentId = null }) {
           <span className="opacity-40 mr-0.5 text-base leading-none">⠿</span>
           <BlockLabel block={block} onChange={change} />
           <button
-            className="ml-auto pl-2 opacity-0 group-hover:opacity-70 hover:!opacity-100 text-white transition-opacity text-sm leading-none"
+            className="ml-auto pl-2 text-white transition-opacity text-sm leading-none cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               removeBlock(spriteId, block.id);
             }}
           >
-            ×
+            <XIcon className="size-4" />
           </button>
         </div>
 
@@ -257,13 +291,13 @@ export default function BlockChip({ block, index, spriteId, parentId = null }) {
       <span className="opacity-40 mr-0.5 text-base leading-none">⠿</span>
       <BlockLabel block={block} onChange={change} />
       <button
-        className="ml-auto pl-2 opacity-0 group-hover:opacity-70 hover:!opacity-100 text-white transition-opacity text-sm leading-none"
+        className="ml-auto pl-2 text-white transition-opacity text-sm leading-none cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();
           removeBlock(spriteId, block.id);
         }}
       >
-        ×
+        <XIcon className="size-4" />
       </button>
     </div>
   );
