@@ -8,6 +8,7 @@ import {
   SquareIcon,
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import CatSprite from "./CatSprite";
 
 export default function Header() {
   const { play, stop, isPlaying } = useAnimation();
@@ -23,8 +24,8 @@ export default function Header() {
     >
       {/* Logo */}
       <div className="flex items-center gap-4">
-        <div className="">
-          <Gamepad2Icon className="size-10" />
+        <div className="size-10">
+          <CatSprite color="oklch(58.5% 0.233 277.117)" />
         </div>
         <div className="flex flex-col gap-1">
           <div className="text-base font-bold text-(--text-primary) tracking-tight leading-none">

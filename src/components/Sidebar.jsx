@@ -58,8 +58,21 @@ export default function Sidebar() {
 
       {/* Footer hint */}
       <div className="p-4 flex flex-col">
-        <div className="text-xs">
+        <div className="text-sm">
           <p>Built by Abir Santra</p>
+        </div>
+        <div className="text-xs text-(--text-muted) mt-1">
+          <p>
+            Source code available on{" "}
+            <a
+              href="https://github.com/AbirSantra/re-scratch.git"
+              className="text-indigo-500 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </p>
         </div>
       </div>
     </div>
