@@ -61,7 +61,7 @@ export default function ScratchEditor() {
 
           {/* Sprites + panel row */}
           <div
-            className="flex flex-1 gap-0 border-t px-4 py-3 overflow-hidden"
+            className="flex flex-1 w-full gap-0 border-t px-4 py-3 overflow-hidden"
             style={{ borderColor: "#21262d" }}
           >
             <SpritePanel />

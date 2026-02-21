@@ -1,6 +1,6 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { DND_TYPES, ALL_BLOCK_DEFS } from "../constants/blocks";
+import { DND_TYPES, ALL_BLOCK_DEFS, BLOCK_TYPES } from "../constants/blocks";
 import { useScratchStore } from "../store/useScratchStore";
 import BlockChip from "./BlockChip";
 
@@ -9,12 +9,14 @@ export default function ScriptArea({ sprite }) {
 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [DND_TYPES.SIDEBAR_BLOCK],
-    drop: (item) => {
+    drop: (item, monitor) => {
+      if (monitor.didDrop()) return; // a nested drop zone already handled it
       const def = ALL_BLOCK_DEFS.find((d) => d.type === item.blockType);
       if (def) {
         addBlock(sprite.id, {
           type: item.blockType,
           params: { ...item.params },
+          children: item.blockType === BLOCK_TYPES.REPEAT ? [] : undefined,
         });
       }
     },

@@ -2,16 +2,6 @@ import { STAGE_W, STAGE_H, SPRITE_SIZE } from "../constants/stage";
 import { BLOCK_TYPES } from "../constants/blocks";
 import { checkCollision, sleep, clamp } from "./helpers";
 
-/**
- * Execute a sprite's block list sequentially.
- * Handles move, turn, goto, repeat, say, think.
- * Detects collisions after each step and triggers hero swap.
- *
- * @param {string}      spriteId
- * @param {object[]}    blocks
- * @param {object}      store    - Zustand store (useScratchStore)
- * @param {AbortSignal} signal
- */
 export async function executeBlocks(spriteId, blocks, store, signal) {
   const getSprite = () =>
     store.getState().sprites.find((s) => s.id === spriteId);
@@ -20,7 +10,6 @@ export async function executeBlocks(spriteId, blocks, store, signal) {
     if (store.getState().collisionHandled) return false;
     const me = getSprite();
     if (!me) return false;
-
     for (const other of store.getState().sprites) {
       if (other.id !== spriteId && checkCollision(me, other)) {
         store.getState().swapBlocks(spriteId, other.id);
@@ -94,18 +83,19 @@ export async function executeBlocks(spriteId, blocks, store, signal) {
         }
 
         case BLOCK_TYPES.REPEAT: {
-          const otherBlocks = blockList.filter((b) => b.id !== block.id);
+          // Use explicit children — no more filtering hack needed
+          const children = block.children ?? [];
           for (let i = 0; i < Number(block.params.times); i++) {
             if (signal.aborted) return true;
-            // Always read fresh blocks from store in case of a swap
-            const freshBlocks = getSprite()?.blocks ?? [];
-            const freshOthers = freshBlocks.filter(
-              (b) => b.type !== BLOCK_TYPES.REPEAT,
-            );
-            const interrupted = await runOnce(freshOthers);
+            // Read fresh children from store in case of a collision swap
+            const freshBlock = getSprite()
+              ?.blocks.flatMap((b) => [b, ...(b.children ?? [])])
+              .find((b) => b.id === block.id);
+            const freshChildren = freshBlock?.children ?? children;
+            const interrupted = await runOnce(freshChildren);
             if (interrupted) return true;
           }
-          return false;
+          break;
         }
 
         default:

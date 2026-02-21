@@ -44,6 +44,7 @@ export const BLOCK_DEFS = {
       color: "#FFAB19",
       darkColor: "#CC8814",
       params: { times: 10 },
+      children: [],
       template: (p) => `Repeat ${p.times} times`,
     },
   ],
