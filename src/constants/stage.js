@@ -23,6 +23,8 @@ export const INITIAL_SPRITES = [
     blocks: [],
     speechBubble: null,
     color: "#4C97FF",
+    show: true,
+    size: 100,
   },
   {
     id: "sprite-2",
@@ -33,5 +35,7 @@ export const INITIAL_SPRITES = [
     blocks: [],
     speechBubble: null,
     color: "#FF6680",
+    show: true,
+    size: 100,
   },
 ];

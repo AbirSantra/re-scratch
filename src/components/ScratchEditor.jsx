@@ -50,7 +50,7 @@ export default function ScratchEditor() {
           className="flex flex-col overflow-hidden"
           style={{ flexShrink: 0 }}
         >
-          <div className="p-4 pb-2">
+          <div className="p-4 flex justify-center items-center">
             <Stage />
           </div>
           <div

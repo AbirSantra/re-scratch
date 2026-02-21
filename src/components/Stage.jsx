@@ -103,13 +103,14 @@ export default function Stage() {
             top: STAGE_H / 2 - sprite.y - SPRITE_SIZE / 2,
             width: SPRITE_SIZE,
             height: SPRITE_SIZE,
-            transform: `rotate(${sprite.rotation}deg)`,
+            transform: `rotate(${sprite.rotation}deg) scale(${(sprite.size ?? 100) / 100})`,
             transition: isPlaying
               ? "left 80ms linear, top 80ms linear"
               : "none",
             zIndex: 5,
             cursor: isPlaying ? "default" : "grab",
             userSelect: "none",
+            display: sprite.show === false ? "none" : "block",
           }}
         >
           <SpeechBubble bubble={sprite.speechBubble} />

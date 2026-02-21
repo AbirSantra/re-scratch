@@ -93,6 +93,8 @@ export const useScratchStore = create((set, get) => ({
       blocks: [],
       speechBubble: null,
       color: SPRITE_COLORS[count % SPRITE_COLORS.length],
+      show: true,
+      size: 100,
     };
     set((state) => ({
       sprites: [...state.sprites, newSprite],
