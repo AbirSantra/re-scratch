@@ -1,26 +1,55 @@
-import React from "react";
-import { useShallow } from "zustand/react/shallow";
+import React, { useRef, useState } from "react";
 import { useScratchStore } from "../store/useScratchStore";
 import { STAGE_W, STAGE_H, SPRITE_SIZE } from "../constants/stage";
 import SpeechBubble from "./SpeechBubble";
 import CatSprite from "./CatSprite";
 
 export default function Stage() {
-  const { sprites, isPlaying } = useScratchStore(
-    useShallow((s) => ({
-      sprites: s.sprites,
-      isPlaying: s.isPlaying,
-    })),
-  );
+  const sprites = useScratchStore((s) => s.sprites);
+  const isPlaying = useScratchStore((s) => s.isPlaying);
+  const updateSprite = useScratchStore((s) => s.updateSprite);
+  const stageRef = useRef(null);
+  const draggingRef = useRef(null); // { spriteId, offsetX, offsetY }
+
+  const handleMouseDown = (e, sprite) => {
+    if (isPlaying) return;
+    e.preventDefault();
+    const rect = stageRef.current.getBoundingClientRect();
+    // Calculate offset from sprite center so it doesn't jump on click
+    const spriteScreenX = rect.left + STAGE_W / 2 + sprite.x;
+    const spriteScreenY = rect.top + STAGE_H / 2 - sprite.y;
+    draggingRef.current = {
+      spriteId: sprite.id,
+      offsetX: e.clientX - spriteScreenX,
+      offsetY: e.clientY - spriteScreenY,
+    };
+  };
+
+  const handleMouseMove = (e) => {
+    if (!draggingRef.current || !stageRef.current) return;
+    const { spriteId, offsetX, offsetY } = draggingRef.current;
+    const rect = stageRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - STAGE_W / 2 - offsetX;
+    const y = -(e.clientY - rect.top - STAGE_H / 2 - offsetY);
+    updateSprite(spriteId, { x, y });
+  };
+
+  const handleMouseUp = () => {
+    draggingRef.current = null;
+  };
 
   return (
     <div
+      ref={stageRef}
       className="relative overflow-hidden rounded-2xl flex-shrink-0"
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
       style={{
         width: STAGE_W,
         height: STAGE_H,
-        background:
-          "radial-gradient(ellipse at 25% 25%, #0e2a4a 0%, #0d1117 70%)",
+        // background:
+        //   "radial-gradient(ellipse at 25% 25%, #0e2a4a 0%, #0d1117 70%)",
         boxShadow: "0 0 0 1px #30363d, 0 8px 32px rgba(0,0,0,0.6)",
       }}
     >
@@ -42,7 +71,7 @@ export default function Stage() {
         <rect width="100%" height="100%" fill="url(#dots)" />
       </svg>
 
-      {/* Crosshair center */}
+      {/* Crosshair */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -67,6 +96,7 @@ export default function Stage() {
       {sprites.map((sprite) => (
         <div
           key={sprite.id}
+          onMouseDown={(e) => handleMouseDown(e, sprite)}
           className="absolute"
           style={{
             left: STAGE_W / 2 + sprite.x - SPRITE_SIZE / 2,
@@ -74,23 +104,21 @@ export default function Stage() {
             width: SPRITE_SIZE,
             height: SPRITE_SIZE,
             transform: `rotate(${sprite.rotation}deg)`,
-            transition: "left 80ms linear, top 80ms linear",
+            transition: isPlaying
+              ? "left 80ms linear, top 80ms linear"
+              : "none",
             zIndex: 5,
+            cursor: isPlaying ? "default" : "grab",
+            userSelect: "none",
           }}
         >
           <SpeechBubble bubble={sprite.speechBubble} />
-
-          {/* Sprite body */}
           <div
             className="w-full h-full flex items-center justify-center"
-            style={{
-              filter: `drop-shadow(0 0 8px ${sprite.color}88)`,
-            }}
+            style={{ filter: `drop-shadow(0 0 8px ${sprite.color}88)` }}
           >
             <CatSprite color={sprite.color} />
           </div>
-
-          {/* Name label */}
           <div
             className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono"
             style={{ fontSize: 9, color: "rgba(255,255,255,0.35)" }}
@@ -100,9 +128,9 @@ export default function Stage() {
         </div>
       ))}
 
-      {/* Coordinate overlay (bottom-left) */}
+      {/* Coordinate overlay */}
       <div
-        className="absolute bottom-2 left-3 font-mono text-xs pointer-events-none"
+        className="absolute bottom-2 left-3 font-mono pointer-events-none"
         style={{ color: "rgba(255,255,255,0.15)", fontSize: 9 }}
       >
         {sprites.map((s) => (
@@ -112,12 +140,12 @@ export default function Stage() {
         ))}
       </div>
 
-      {/* Running indicator */}
-      {isPlaying && (
+      {/* Status indicator */}
+      {isPlaying ? (
         <div
           className="absolute top-2.5 right-2.5 flex items-center gap-1.5 rounded-full px-2.5 py-1"
           style={{
-            background: "rgba(46, 160, 67, 0.15)",
+            background: "rgba(46,160,67,0.15)",
             border: "1px solid rgba(46,160,67,0.4)",
           }}
         >
@@ -126,7 +154,7 @@ export default function Stage() {
             RUNNING
           </span>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

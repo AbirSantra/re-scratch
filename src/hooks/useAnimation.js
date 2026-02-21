@@ -12,6 +12,11 @@ export function useAnimation() {
   const play = useCallback(async () => {
     if (isPlaying) return;
 
+    setPlaying(true);
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     const runAllSprites = (signal) =>
       Promise.all(
         store
@@ -21,20 +26,34 @@ export function useAnimation() {
           ),
       );
 
-    setPlaying(true);
-
-    const controller = new AbortController();
-    abortRef.current = controller;
-
     try {
-      await runAllSprites(controller.signal);
+      let collisionOccurred = true;
 
-      if (store.getState().collisionHandled && !controller.signal.aborted) {
+      // Keep re-running as long as collisions are happening
+      while (collisionOccurred && !controller.signal.aborted) {
         store.getState().setCollisionHandled(false);
-        await runAllSprites(controller.signal);
+
+        // Create a fresh inner controller for each run so we can
+        // abort just this round on collision without stopping everything
+        const roundController = new AbortController();
+
+        // If outer stop is pressed, abort the round too
+        controller.signal.addEventListener("abort", () =>
+          roundController.abort(),
+        );
+
+        // Poll for collision and abort the round when it happens
+        const collisionPoller = setInterval(() => {
+          if (store.getState().collisionHandled) {
+            roundController.abort();
+          }
+        }, 50);
+
+        await runAllSprites(roundController.signal).catch(() => {});
+        clearInterval(collisionPoller);
+
+        collisionOccurred = store.getState().collisionHandled;
       }
-    } catch (_) {
-      // AbortError is expected when the Stop button is pressed
     } finally {
       setPlaying(false);
       store.getState().sprites.forEach((s) => {

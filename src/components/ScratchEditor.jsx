@@ -1,20 +1,15 @@
 import React from "react";
-import { useShallow } from "zustand/react/shallow";
 import { useScratchStore } from "../store/useScratchStore";
 import Sidebar from "./Sidebar";
 import ScriptArea from "./ScriptArea";
 import Stage from "./Stage";
 import SpritePanel from "./SpritePanel";
 import Header from "./Header";
+import SpriteTabs from "./SpriteTabs";
 
 export default function ScratchEditor() {
-  const { sprites, selectedSpriteId } = useScratchStore(
-    useShallow((s) => ({
-      sprites: s.sprites,
-      selectedSpriteId: s.selectedSpriteId,
-    })),
-  );
-
+  const sprites = useScratchStore((s) => s.sprites);
+  const selectedSpriteId = useScratchStore((s) => s.selectedSpriteId);
   const selectedSprite = sprites.find((s) => s.id === selectedSpriteId);
 
   return (
@@ -32,11 +27,12 @@ export default function ScratchEditor() {
         {/* Left: Block palette */}
         <Sidebar />
 
-        {/* Center: Script area for selected sprite */}
+        {/* Center: Tabs + Script area */}
         <div
-          className="flex-1 overflow-hidden border-r"
+          className="flex-1 flex flex-col overflow-hidden border-r"
           style={{ borderColor: "#21262d", minWidth: 280 }}
         >
+          <SpriteTabs />
           {selectedSprite ? (
             <ScriptArea sprite={selectedSprite} />
           ) : (
@@ -51,17 +47,14 @@ export default function ScratchEditor() {
 
         {/* Right: Stage + Sprite panel */}
         <div
-          className="flex flex-col gap-0 overflow-hidden"
+          className="flex flex-col overflow-hidden"
           style={{ flexShrink: 0 }}
         >
-          {/* Stage */}
           <div className="p-4 pb-2">
             <Stage />
           </div>
-
-          {/* Sprites + panel row */}
           <div
-            className="flex flex-1 w-full gap-0 border-t px-4 py-3 overflow-hidden"
+            className="flex flex-1 gap-0 border-t px-4 py-3 overflow-hidden"
             style={{ borderColor: "#21262d" }}
           >
             <SpritePanel />
