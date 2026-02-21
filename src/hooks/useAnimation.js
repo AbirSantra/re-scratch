@@ -8,7 +8,6 @@ export function useAnimation() {
 
   const isPlaying = useScratchStore((s) => s.isPlaying);
   const setPlaying = useScratchStore((s) => s.setPlaying);
-  const resetPositions = useScratchStore((s) => s.resetPositions);
 
   const play = useCallback(async () => {
     if (isPlaying) return;
@@ -21,9 +20,6 @@ export function useAnimation() {
             executeBlocks(sprite.id, sprite.blocks, store, signal),
           ),
       );
-
-    resetPositions();
-    await new Promise((r) => setTimeout(r, 80));
 
     setPlaying(true);
 
