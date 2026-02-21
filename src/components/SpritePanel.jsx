@@ -26,9 +26,9 @@ function NumberInput({ value, onChange, disabled, min, max, step = 1 }) {
       onChange={(e) => onChange(Number(e.target.value))}
       className="w-full rounded-lg px-2 py-1 text-xs font-bold text-center focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-colors"
       style={{
-        background: disabled ? "#0d1117" : "#21262d",
-        color: disabled ? "#484f58" : "#c9d1d9",
-        border: "1px solid #30363d",
+        background: disabled ? "var(--bg-primary)" : "var(--bg-tertiary)",
+        color: disabled ? "var(--text-muted)" : "var(--text-primary)",
+        border: "1px solid var(--border-muted)",
         cursor: disabled ? "not-allowed" : "text",
       }}
     />
@@ -44,9 +44,9 @@ function TextInput({ value, onChange, disabled }) {
       onChange={(e) => onChange(e.target.value)}
       className="w-full rounded-lg px-2 py-1 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-colors"
       style={{
-        background: disabled ? "#0d1117" : "#21262d",
-        color: disabled ? "#484f58" : "#c9d1d9",
-        border: "1px solid #30363d",
+        background: disabled ? "var(--bg-primary)" : "var(--bg-tertiary)",
+        color: disabled ? "var(--text-muted)" : "var(--text-primary)",
+        border: "1px solid var(--border-muted)",
         cursor: disabled ? "not-allowed" : "text",
       }}
     />
@@ -122,10 +122,10 @@ export default function SpritePanel() {
       {/* Sprite preview header */}
       <div
         className="flex items-center gap-3 p-3 border-b"
-        style={{ borderColor: "#21262d" }}
+        style={{ borderColor: "var(--bg-tertiary)" }}
       >
         <div
-          className="rounded-xl flex items-center justify-center flex-shrink-0"
+          className="rounded-xl flex items-center justify-center shrink-0"
           style={{
             width: 44,
             height: 44,
@@ -138,10 +138,13 @@ export default function SpritePanel() {
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-xs font-bold text-white truncate">
+          <div className="text-xs font-bold text-(--text-primary) truncate">
             {sprite.name}
           </div>
-          <div className="text-xs mt-0.5" style={{ color: "#484f58" }}>
+          <div
+            className="text-xs mt-0.5"
+            style={{ color: "var(--text-muted)" }}
+          >
             {sprite.blocks.length} blocks
           </div>
         </div>
@@ -227,39 +230,29 @@ export default function SpritePanel() {
 
         {/* Disabled hint when playing */}
         {isPlaying && (
-          <p className="text-xs text-center" style={{ color: "#484f58" }}>
+          <p
+            className="text-xs text-center"
+            style={{ color: "var(--text-muted)" }}
+          >
             Controls locked while playing
           </p>
         )}
       </div>
 
       {/* Hero feature hint */}
-      <div
-        className="mx-3 mt-auto mb-3 p-2.5 rounded-xl text-xs flex flex-col gap-2"
-        style={{
-          background: "rgba(46,160,67,0.08)",
-          border: "1px solid rgba(46,160,67,0.25)",
-          color: "#7ee787",
-          lineHeight: 1.5,
-        }}
-      >
-        <span className="font-bold text-base flex items-center gap-1 mb-1">
+      <div className="mx-3 mt-auto mb-3 p-2.5 rounded-xl text-xs flex flex-col gap-2 border border-indigo-500 bg-indigo-500/10">
+        <span className="font-bold text-base flex items-center gap-1 mb-1 text-indigo-500">
           <ZapIcon /> Hero Feature
         </span>
-        <p className="">
+        <p className="text-(--text-secondary)">
           Sprites swap scripts on collision! <br /> Click below to automatically
-          set up a demo. <br /> Then click Play and watch the magic happen ✨
+          set up a demo. <br /> Then click Play and watch the magic happen!
         </p>
         <button
           onClick={setupCollisionDemo}
           disabled={isPlaying}
-          className="w-full mt-2 py-2 rounded-lg text-xs font-bold transition-all"
+          className="w-full mt-2 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-500 text-white"
           style={{
-            background: isPlaying
-              ? "rgba(46,160,67,0.05)"
-              : "rgba(46,160,67,0.15)",
-            color: isPlaying ? "#3d6e4a" : "#7ee787",
-            border: "1px solid rgba(46,160,67,0.3)",
             cursor: isPlaying ? "not-allowed" : "pointer",
           }}
         >

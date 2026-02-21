@@ -16,9 +16,9 @@ export default function ScratchEditor() {
     <div
       className="flex flex-col h-screen overflow-hidden"
       style={{
-        background: "#0d1117",
+        background: "var(--bg-primary)",
         fontFamily: "'DM Mono', 'Fira Code', 'Cascadia Code', monospace",
-        color: "#c9d1d9",
+        color: "var(--text-primary)",
       }}
     >
       <Header />
@@ -30,7 +30,7 @@ export default function ScratchEditor() {
         {/* Center: Tabs + Script area */}
         <div
           className="flex-1 flex flex-col overflow-hidden border-r"
-          style={{ borderColor: "#21262d", minWidth: 280 }}
+          style={{ borderColor: "var(--bg-tertiary)", minWidth: 280 }}
         >
           <SpriteTabs />
           {selectedSprite ? (
@@ -38,7 +38,7 @@ export default function ScratchEditor() {
           ) : (
             <div
               className="flex items-center justify-center h-full text-sm"
-              style={{ color: "#484f58" }}
+              style={{ color: "var(--text-muted)" }}
             >
               Select a sprite to edit its script
             </div>
@@ -55,7 +55,7 @@ export default function ScratchEditor() {
           </div>
           <div
             className="flex flex-1 gap-0 border-t px-4 py-3 overflow-hidden"
-            style={{ borderColor: "#21262d" }}
+            style={{ borderColor: "var(--bg-tertiary)" }}
           >
             <SpritePanel />
           </div>

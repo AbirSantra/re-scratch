@@ -13,7 +13,11 @@ export default function SpriteTabs() {
   return (
     <div
       className="flex items-end gap-1 px-3 pt-2 border-b overflow-x-auto"
-      style={{ background: "#161b22", borderColor: "#21262d", flexShrink: 0 }}
+      style={{
+        background: "var(--bg-secondary)",
+        borderColor: "var(--bg-tertiary)",
+        flexShrink: 0,
+      }}
     >
       {sprites.map((sprite) => {
         const isSelected = sprite.id === selectedSpriteId;
@@ -21,13 +25,13 @@ export default function SpriteTabs() {
           <button
             key={sprite.id}
             onClick={() => selectSprite(sprite.id)}
-            className="flex items-center gap-2 px-3 py-2 rounded-t-lg text-xs font-bold transition-all flex-shrink-0 group"
+            className="flex items-center gap-2 px-3 py-2 rounded-t-lg text-xs font-bold shrink-0 group"
             style={{
-              background: isSelected ? "#0d1117" : "transparent",
-              color: isSelected ? "white" : "#6e7681",
-              borderTop: `2px solid ${isSelected ? sprite.color : "#30363d"}`,
-              borderLeft: `1px solid #30363d`,
-              borderRight: `1px solid #30363d`,
+              background: isSelected ? "var(--bg-primary)" : "transparent",
+              color: isSelected ? "var(--text-primary)" : "var(--text-muted)",
+              borderTop: `2px solid ${isSelected ? sprite.color : "var(--border-muted)"}`,
+              borderLeft: `1px solid var(--border-muted)`,
+              borderRight: `1px solid var(--border-muted)`,
               marginBottom: isSelected ? "-1px" : 0,
             }}
           >

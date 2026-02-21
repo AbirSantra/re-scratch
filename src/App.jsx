@@ -1,12 +1,16 @@
 import React from "react";
-import ScratchEditor from "./components/ScratchEditor";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import ScratchEditor from "./components/ScratchEditor";
+import "./index.css";
+import { ThemeProvider } from "./store/themeStore";
 
 export default function App() {
   return (
-    <DndProvider backend={HTML5Backend}>
-      <ScratchEditor />
-    </DndProvider>
+    <ThemeProvider>
+      <DndProvider backend={HTML5Backend}>
+        <ScratchEditor />
+      </DndProvider>
+    </ThemeProvider>
   );
 }

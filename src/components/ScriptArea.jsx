@@ -29,11 +29,17 @@ export default function ScriptArea({ sprite }) {
   const isEmpty = sprite.blocks.length === 0;
 
   return (
-    <div className="flex flex-col h-full" style={{ background: "#0d1117" }}>
+    <div
+      className="flex flex-col h-full"
+      style={{ background: "var(--bg-primary)" }}
+    >
       {/* Header */}
       <div
         className="flex items-center gap-2.5 px-4 py-2.5 border-b"
-        style={{ borderColor: "#21262d", background: "#161b22" }}
+        style={{
+          borderColor: "var(--bg-tertiary)",
+          background: "var(--bg-secondary)",
+        }}
       >
         <span
           className="w-3 h-3 rounded-full inline-block flex-shrink-0"
@@ -42,13 +48,16 @@ export default function ScriptArea({ sprite }) {
             boxShadow: `0 0 6px ${sprite.color}`,
           }}
         />
-        <span className="text-xs font-bold text-gray-300 tracking-wide">
+        <span className="text-xs font-bold text-(--text-primary) tracking-wide">
           {sprite.name}
-          <span className="text-gray-600 font-normal ml-1">— Script</span>
+          <span className="text-(--text-muted) font-normal ml-1">— Script</span>
         </span>
         <span
           className="ml-auto text-xs px-2 py-0.5 rounded-full"
-          style={{ background: "#21262d", color: "#8b949e" }}
+          style={{
+            background: "var(--bg-tertiary)",
+            color: "var(--text-primary)",
+          }}
         >
           {sprite.blocks.length}{" "}
           {sprite.blocks.length === 1 ? "block" : "blocks"}
@@ -72,11 +81,17 @@ export default function ScriptArea({ sprite }) {
           <div className="flex flex-col items-center justify-center h-full gap-3 pointer-events-none">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
-              style={{ background: "#161b22", border: "1px dashed #30363d" }}
+              style={{
+                background: "var(--bg-secondary)",
+                border: "1px dashed var(--border-muted)",
+              }}
             >
               ⬇
             </div>
-            <p className="text-xs text-center" style={{ color: "#484f58" }}>
+            <p
+              className="text-xs text-center"
+              style={{ color: "var(--text-muted)" }}
+            >
               Drag blocks from the sidebar
               <br />
               to build {sprite.name}&apos;s script
@@ -87,11 +102,17 @@ export default function ScriptArea({ sprite }) {
             {/* Blocks stack visual header */}
             <div
               className="flex items-center gap-1.5 mb-3 text-xs font-bold uppercase tracking-widest"
-              style={{ color: "#484f58" }}
+              style={{ color: "var(--text-muted)" }}
             >
-              <div className="flex-1 h-px" style={{ background: "#21262d" }} />
+              <div
+                className="flex-1 h-px"
+                style={{ background: "var(--bg-tertiary)" }}
+              />
               <span>Script</span>
-              <div className="flex-1 h-px" style={{ background: "#21262d" }} />
+              <div
+                className="flex-1 h-px"
+                style={{ background: "var(--bg-tertiary)" }}
+              />
             </div>
             {sprite.blocks.map((block, index) => (
               <BlockChip

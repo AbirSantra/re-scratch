@@ -15,12 +15,15 @@ export default function Sidebar() {
     <div
       className="flex flex-col h-full border-r w-80 shrink-0"
       style={{
-        background: "#161b22",
-        borderColor: "#30363d",
+        background: "var(--bg-secondary)",
+        borderColor: "var(--border-muted)",
       }}
     >
       {/* Tab bar */}
-      <div className="flex border-b" style={{ borderColor: "#30363d" }}>
+      <div
+        className="flex border-b"
+        style={{ borderColor: "var(--border-muted)" }}
+      >
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -41,7 +44,9 @@ export default function Sidebar() {
       </div>
 
       <div className="p-4 pb-0">
-        <p className="text-xs">Drag blocks to the Script Area</p>
+        <p className="text-xs text-(--text-muted)">
+          Drag blocks to the Script Area to apply
+        </p>
       </div>
 
       {/* Blocks list */}
@@ -52,18 +57,9 @@ export default function Sidebar() {
       </div>
 
       {/* Footer hint */}
-      <div className="p-4">
-        <div
-          className="flex items-center gap-1.5 rounded-full px-2.5 py-1 shrink-0"
-          style={{
-            background: "rgba(46,160,67,0.15)",
-            border: "1px solid rgba(46,160,67,0.4)",
-          }}
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-green-400 font-bold" style={{ fontSize: 9 }}>
-            Juspay Challenge
-          </span>
+      <div className="p-4 flex flex-col">
+        <div className="text-xs">
+          <p>Built by Abir Santra</p>
         </div>
       </div>
     </div>

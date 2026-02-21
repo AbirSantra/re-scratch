@@ -41,16 +41,13 @@ export default function Stage() {
   return (
     <div
       ref={stageRef}
-      className="relative overflow-hidden rounded-2xl flex-shrink-0"
+      className="relative overflow-hidden rounded-2xl shrink-0"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
       style={{
         width: STAGE_W,
         height: STAGE_H,
-        // background:
-        //   "radial-gradient(ellipse at 25% 25%, #0e2a4a 0%, #0d1117 70%)",
-        boxShadow: "0 0 0 1px #30363d, 0 8px 32px rgba(0,0,0,0.6)",
       }}
     >
       {/* Dot grid */}
@@ -84,11 +81,11 @@ export default function Stage() {
       >
         <div
           className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2"
-          style={{ background: "rgba(255,255,255,0.08)" }}
+          style={{ background: "var(--border)" }}
         />
         <div
           className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2"
-          style={{ background: "rgba(255,255,255,0.08)" }}
+          style={{ background: "var(--border)" }}
         />
       </div>
 
@@ -132,7 +129,7 @@ export default function Stage() {
       {/* Coordinate overlay */}
       <div
         className="absolute bottom-2 left-3 font-mono pointer-events-none"
-        style={{ color: "rgba(255,255,255,0.15)", fontSize: 9 }}
+        style={{ color: "var(--text-muted)", fontSize: 9 }}
       >
         {sprites.map((s) => (
           <div key={s.id}>
