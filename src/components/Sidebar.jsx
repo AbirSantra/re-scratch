@@ -13,12 +13,10 @@ export default function Sidebar() {
 
   return (
     <div
-      className="flex flex-col h-full border-r"
+      className="flex flex-col h-full border-r w-80 shrink-0"
       style={{
-        width: 210,
         background: "#161b22",
         borderColor: "#30363d",
-        flexShrink: 0,
       }}
     >
       {/* Tab bar */}
@@ -58,11 +56,19 @@ export default function Sidebar() {
       </div>
 
       {/* Footer hint */}
-      <div
-        className="px-3 py-3 text-xs text-center border-t"
-        style={{ color: "#484f58", borderColor: "#21262d" }}
-      >
-        Drag blocks to script →
+      <div className="p-4">
+        <div
+          className="flex items-center gap-1.5 rounded-full px-2.5 py-1 shrink-0"
+          style={{
+            background: "rgba(46,160,67,0.15)",
+            border: "1px solid rgba(46,160,67,0.4)",
+          }}
+        >
+          <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-green-400 font-bold" style={{ fontSize: 9 }}>
+            Juspay Challenge
+          </span>
+        </div>
       </div>
     </div>
   );

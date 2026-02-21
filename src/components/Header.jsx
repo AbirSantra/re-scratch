@@ -13,22 +13,16 @@ export default function Header() {
       style={{ background: "#161b22", borderColor: "#21262d" }}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5">
-        <div
-          className="w-8 h-8 rounded-xl flex items-center justify-center text-lg"
-          style={{
-            background: "linear-gradient(135deg, #4C97FF22, #4C97FF44)",
-            border: "1px solid #4C97FF44",
-          }}
-        >
-          <Gamepad2Icon />
+      <div className="flex items-center gap-4">
+        <div className="">
+          <Gamepad2Icon className="size-10" />
         </div>
-        <div>
-          <div className="text-sm font-bold text-white tracking-tight leading-none">
+        <div className="flex flex-col gap-1">
+          <div className="text-base font-bold text-white tracking-tight leading-none">
             ReScratch
           </div>
           <div className="text-xs mt-0.5" style={{ color: "#484f58" }}>
-            Visual Code Environment
+            Visual Code Editor for Scratch
           </div>
         </div>
       </div>
@@ -83,18 +77,6 @@ export default function Header() {
           <span>↺</span>
           <span>Reset</span>
         </button>
-      </div>
-
-      {/* Juspay badge */}
-      <div
-        className="ml-4 text-xs px-2 py-1 rounded-lg font-bold"
-        style={{
-          background: "#4C97FF11",
-          color: "#4C97FF",
-          border: "1px solid #4C97FF33",
-        }}
-      >
-        Juspay Challenge
       </div>
     </header>
   );
