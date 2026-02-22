@@ -12,7 +12,7 @@ export default function SpriteTabs() {
 
   return (
     <div
-      className="flex items-end gap-1 px-3 pt-2 border-b overflow-x-auto"
+      className="flex flex-wrap items-end gap-1 px-3 pt-2 border-b overflow-x-auto"
       style={{
         background: "var(--bg-secondary)",
         borderColor: "var(--bg-tertiary)",

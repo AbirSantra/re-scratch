@@ -1,3 +1,4 @@
+import { MoonStarIcon, SunMediumIcon } from "lucide-react";
 import { useTheme } from "../store/themeStore";
 
 const ThemeToggle = () => {
@@ -14,7 +15,11 @@ const ThemeToggle = () => {
       }}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >
-      {theme === "dark" ? "☀️" : "🌙"}
+      {theme === "dark" ? (
+        <SunMediumIcon className="size-4" />
+      ) : (
+        <MoonStarIcon className="size-4" />
+      )}
     </button>
   );
 };
