@@ -510,4 +510,4 @@ This would make the editor far more expressive while keeping the default experie
 
 ### Abir Santra
 
-[Your GitHub Profile](https://github.com/AbirSantra) | [LinkedIn](https://www.linkedin.com/in/abirsantra/) | [Portfolio](https://www.abirsantra.com/)
+[LinkedIn](https://www.linkedin.com/in/abirsantra/) | [Portfolio](https://www.abirsantra.com/) | [X](https://x.com/the_codefreak)
