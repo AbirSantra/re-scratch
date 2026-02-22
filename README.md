@@ -6,6 +6,12 @@ A visual, block-based coding environment built with React, inspired by [MIT Scra
   <img src="./screenshots/app-overview.png" width="700" alt="App Overview" />
 </p>
 
+<p align="center">
+  <a href="https://re-scratch.vercel.app/">
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-re--scratch.vercel.app-blue?style=for-the-badge" alt="Live Demo" />
+  </a>
+</p>
+
 ---
 
 ## 🚀 Getting Started
@@ -494,6 +500,9 @@ This would make the editor far more expressive while keeping the default experie
 - **More motion blocks** — glide, point towards, bounce off edges
 - **More looks blocks** — change costume, set color effect
 - **Sound blocks** — play a sound, set volume
+- **Custom sprite upload** — allow users to upload their own images for sprites
+- **Resizable stage** — allow users to change stage dimensions
+- **Mobile support** — touch-friendly drag and drop, responsive layout
 
 ---
 
