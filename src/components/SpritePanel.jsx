@@ -82,7 +82,7 @@ export default function SpritePanel() {
         {
           id: makeId(),
           type: "repeat",
-          params: { times: 24 },
+          params: { times: 12 },
           children: [
             {
               id: makeId(),
@@ -91,6 +91,12 @@ export default function SpritePanel() {
               children: undefined,
             },
           ],
+        },
+        {
+          id: makeId(),
+          type: "say",
+          params: { text: "Ouch!", secs: 2 },
+          children: undefined,
         },
       ],
     });
@@ -103,7 +109,7 @@ export default function SpritePanel() {
         {
           id: makeId(),
           type: "repeat",
-          params: { times: 24 },
+          params: { times: 12 },
           children: [
             {
               id: makeId(),
@@ -112,6 +118,12 @@ export default function SpritePanel() {
               children: undefined,
             },
           ],
+        },
+        {
+          id: makeId(),
+          type: "say",
+          params: { text: "Ouch!", secs: 2 },
+          children: undefined,
         },
       ],
     });
@@ -242,7 +254,7 @@ export default function SpritePanel() {
       {/* Hero feature hint */}
       <div className="mx-3 mt-auto mb-3 p-2.5 rounded-xl text-xs flex flex-col gap-2 border border-indigo-500 bg-indigo-500/10">
         <span className="font-bold text-base flex items-center gap-1 mb-1 text-indigo-500">
-          <ZapIcon /> Hero Feature
+          <ZapIcon /> Collision Feature
         </span>
         <p className="text-(--text-secondary)">
           Sprites swap scripts on collision! <br /> Click below to automatically
